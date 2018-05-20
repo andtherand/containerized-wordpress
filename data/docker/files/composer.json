@@ -1,0 +1,60 @@
+{
+  "name": "composer-wordpress",
+  "description": "install wordpress via composer",
+  "authors": [{
+    "name": "Andy Ruck",
+    "email": "mychiara+github@gmail.com"
+  }],
+
+  "repositories":[
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    },{
+      "type": "composer",
+      "url": "https://wp-languages.github.io"
+    }
+  ],
+
+  "config": {
+    "dropin-installer": "copy"
+  },
+
+  "require": {
+    "vlucas/phpdotenv": "^2.4",
+    "johnpbloch/wordpress": "~4",
+
+    "wpackagist-plugin/duplicator":"1.2.36",
+    "wpackagist-plugin/wp-permalauts": "~1.0.2",
+    "wpackagist-plugin/wordpress-seo": "~7.3",
+    "wpackagist-plugin/black-studio-tinymce-widget": "~2.6.2",
+    "wpackagist-plugin/wp-fastest-cache": "~0.8.7",
+    "koodimonni-language/fi": "*",
+    "koodimonni-language/de_DE": "*",
+    "koodimonni-language/core-de_de": "*",
+
+    "wpackagist-theme/twentyseventeen": "1.5"
+  },
+
+  "require-dev": {
+    "koodimonni/composer-dropin-installer": "*",
+    "wpackagist-plugin/debug-bar": "~0.9",
+    "wpackagist-plugin/developer": "*",
+    "wpackagist-plugin/debug-bar-console": "*"
+  },
+
+  "extra": {
+    "wordpress-install-dir": "public/wp",
+
+    "installer-paths": {
+      "public/content/plugins/{$name}"   : ["type:wordpress-plugin"],
+      "public/content/themes/{$name}"    : ["type:wordpress-theme"]
+    },
+
+    "dropin-paths": {
+        "public/content/languages/": ["vendor:koodimonni-language"],
+        "public/content/languages/plugins/": ["vendor:koodimonni-plugin-language"],
+        "public/content/languages/themes/": ["vendor:koodimonni-theme-language"]
+    }
+  }
+}
