@@ -1,0 +1,30 @@
+version: '3.3'
+
+services:
+  proxy:
+    image: jwilder/nginx-proxy:latest
+    container_name: proxy
+    restart: always
+    ports:
+      - '80:80'
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - dev_network
+
+  dns:
+    image: andyshinn/dnsmasq
+    container_name: dns
+    restart: always
+    ports:
+      - '53535:53/tcp'
+      - '53535:53/udp'
+    command: '--address=/local/127.0.0.1'
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - dev_network
+
+networks:
+  dev_network:
+    driver: bridge
