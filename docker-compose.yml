@@ -1,16 +1,21 @@
 version: '3.3'
 
 services:
-  nginx:
+  webserver:
     image: nginx:latest
-    container_name: nginx
-    ports:
-      - '8080:80'
+    container_name: webserver
+    # ports:
+    #   - '8080:80'
     volumes:
       - .:/app
       - ./data/nginx/site.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - wp
+    environment:
+      VIRTUAL_HOST: testing.localhost
+    networks:
+      - proxy_dev_network
+      - wp_network
 
   db:
     image: mysql:5.7
@@ -22,6 +27,8 @@ services:
       MYSQL_DATABASE: wp_database
       MYSQL_USER: wp_dbu
       MYSQL_PASSWORD: please_change_me!1!
+    networks:
+      - wp_network
 
   wp:
     build:
@@ -36,3 +43,12 @@ services:
       - .:/app
     environment:
       WP_TITLE: 'New WP Title'
+      WP_HOME: http://testing.localhost
+    networks:
+      - wp_network
+      - proxy_dev_network
+
+networks:
+  proxy_dev_network:
+    external: true
+  wp_network:
