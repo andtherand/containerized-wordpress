@@ -1,8 +1,16 @@
-## PROJECT
+## PROJECT specifics
+
 public
 vendor
 data/db
 secrets.php
+
+# the following files are part of the docker image and are already added to the index
+.editorconfig
+.env
+composer.*
+main-config.php
+wp-cli.yml
 
 # Created by https://www.gitignore.io/api/osx,windows,phpstorm
 
